@@ -32,7 +32,7 @@ document.addEventListener("DOMContentLoaded", function(){
 	function toggleMenuOff() {
 	  if ( menuState !== 0 ) {
 	    menuState = 0;
-	    menu.classList.remove(activeClassName);
+	    menu.classList.remove(active);
 	  }
 	}
 	function getPosition(e) {
@@ -60,6 +60,9 @@ document.addEventListener("DOMContentLoaded", function(){
 	var canvasHtml = document.getElementById("star-canvas");
 
 	canvasHtml.addEventListener("click", function(event){
+		if(event.button === 0){
+			toggleMenuOff();
+		}
 		var ellipse = canvas.display.ellipse({
 			x: event.clientX,
 			y: event.clientY,
@@ -72,9 +75,7 @@ document.addEventListener("DOMContentLoaded", function(){
 			if(event.button === 2){
 				toggleMenuOn();
 				positionMenu(event);
-			} else {
-				toggleMenuOff();
-			}
+			} 
 		})
 
 

@@ -3,6 +3,9 @@ document.addEventListener("DOMContentLoaded", function(){
 		canvas: "#star-canvas",
 		background: "#000"
 	});
+	// set canvas width and height
+	canvas.width  = window.innerWidth;
+	canvas.height = window.innerHeight;
 
 	// context menu initialization
 	var menu = document.querySelector("#context-menu");
@@ -42,9 +45,9 @@ document.addEventListener("DOMContentLoaded", function(){
 	    posx = e.pageX;
 	    posy = e.pageY;
 	  } else if (e.clientX || e.clientY) {
-	    posx = e.clientX + document.body.scrollLeft + 
+	    posx = e.clientX + document.body.scrollLeft +
 	                       document.documentElement.scrollLeft;
-	    posy = e.clientY + document.body.scrollTop + 
+	    posy = e.clientY + document.body.scrollTop +
 	                       document.documentElement.scrollTop;
 	  }
 
@@ -93,6 +96,5 @@ document.addEventListener("DOMContentLoaded", function(){
 		dotList.push({x:ellipse.x, y: ellipse.y})
 	});
 
-	
-});
 
+});

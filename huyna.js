@@ -58,43 +58,48 @@ document.addEventListener("DOMContentLoaded", function(){
 	}
 	var dotList = [];
 	var canvasHtml = document.getElementById("star-canvas");
+	document.getElementsByTagName("body")[0].addEventListener("click",function(event){
 
-	canvasHtml.addEventListener("click", function(event){
-		if(event.button === 0){
-			toggleMenuOff();
+		if(event.button === 0 && menuState ){
+		toggleMenuOff();
 		}
-		var ellipse = canvas.display.ellipse({
-			x: event.clientX,
-			y: event.clientY,
-			radius: 3,
-			fill: "#fff"
-		});
-
-		canvas.addChild(ellipse);
-		ellipse.bind("click", function(event){
-			if(event.button === 2){
-				toggleMenuOn();
-				positionMenu(event);
-			} 
-		})
-
-
-		ellipse.animate({radius: 8}, {duration: "short"});
-		ellipse.animate({radius: 2}, {duration: "short"});
-		ellipse.animate({radius: 7}, {duration: "short"});
-		ellipse.animate({radius: 3}, {duration: "short"});
-		ellipse.animate({radius: 5}, {duration: "short"});
-		ellipse.animate({radius: 4}, {duration: "short"});
-		dotList.forEach(function(elem){
-			var line = canvas.display.line({
-				start: { x: ellipse.x, y: ellipse.y },
-				end: { x: elem.x, y: elem.y },
-				stroke: "1px #ffc",
-				cap: "round"
+	})
+	canvasHtml.addEventListener("click", function(event){
+		if(!menuState){
+			var ellipse = canvas.display.ellipse({
+				x: event.clientX,
+				y: event.clientY,
+				radius: 3,
+				fill: "#fff"
 			});
-			canvas.addChild(line);
-		})
-		dotList.push({x:ellipse.x, y: ellipse.y})
+
+			canvas.addChild(ellipse);
+			ellipse.bind("click", function(event){
+
+				if(event.button === 2 ){
+					toggleMenuOn();
+					positionMenu(event);
+				} 
+			})
+
+
+			ellipse.animate({radius: 8}, {duration: "short"});
+			ellipse.animate({radius: 2}, {duration: "short"});
+			ellipse.animate({radius: 7}, {duration: "short"});
+			ellipse.animate({radius: 3}, {duration: "short"});
+			ellipse.animate({radius: 5}, {duration: "short"});
+			ellipse.animate({radius: 4}, {duration: "short"});
+			dotList.forEach(function(elem){
+				var line = canvas.display.line({
+					start: { x: ellipse.x, y: ellipse.y },
+					end: { x: elem.x, y: elem.y },
+					stroke: "1px #ffc",
+					cap: "round"
+				});
+				canvas.addChild(line);
+			})
+			dotList.push({x:ellipse.x, y: ellipse.y})
+		}
 	});
 
 

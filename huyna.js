@@ -15,26 +15,50 @@ document.addEventListener("DOMContentLoaded", function(){
 	var menuPositionX;
 	var menuPositionY;
 	//end menu init
+	//input info initialization
+  var input = document.querySelector("#dotInfo");
+	var inputState = 0;
+	var inputActive = "dotInfo--active";
+	//end input init
+
 	function positionMenu(e) {
 	  menuPosition = getPosition(e);
 	  menuPositionX = menuPosition.x + "px";
 	  menuPositionY = menuPosition.y + "px";
-
+	 	input.style.left = menuPositionX;
+	  input.style.top = menuPositionY; 
 	  menu.style.left = menuPositionX;
 	  menu.style.top = menuPositionY;
 	}
+
+	function toggleInputOn(){
+		if ( inputState !== 1){
+			inputState = 1;
+			input.classList.add(inputActive);
+		}
+	}
+
+	function toggleInputOff(){
+		if ( inputState !== 0) {
+			inputState =0;
+			input.classList.remove(inputActive);
+		}
+	}
+
 	function toggleMenuOn() {
 	  if ( menuState !== 1 ) {
 	    menuState = 1;
 	    menu.classList.add(active);
 	  }
 	}
+
 	function toggleMenuOff() {
 	  if ( menuState !== 0 ) {
 	    menuState = 0;
 	    menu.classList.remove(active);
 	  }
 	}
+
 	function getPosition(e) {
 	  var posx = 0;
 	  var posy = 0;
@@ -56,19 +80,26 @@ document.addEventListener("DOMContentLoaded", function(){
 	    y: posy
 	  }
 	}
+
 	var dotList = [];
 	var canvasHtml = document.getElementById("star-canvas");
 	document.getElementsByTagName("body")[0].addEventListener("click",function(event){
-
 		if(event.button === 0 && menuState ){
 		toggleMenuOff();
+		}
+	})
+	var inputBox = document.getElementById("inputBox");
+	inputBox.addEventListener("click",function(event){
+		if(event.button === 0){
+			toggleInputOn();
+			positionMenu(event);
 		}
 	})
 	canvasHtml.addEventListener("click", function(event){
 		if(!menuState){
 			var ellipse = canvas.display.ellipse({
-				x: event.clientX + 20,
-				y: event.clientY - 10,
+				x: event.clientX,
+				y: event.clientY,
 				radius: 3,
 				fill: "#fff"
 			});
@@ -78,6 +109,7 @@ document.addEventListener("DOMContentLoaded", function(){
 
 				if(event.button === 2 ){
 					toggleMenuOn();
+					toggleInputOff();
 					positionMenu(event);
 				} 
 			})
@@ -89,6 +121,7 @@ document.addEventListener("DOMContentLoaded", function(){
 			ellipse.animate({radius: 3}, {duration: "short"});
 			ellipse.animate({radius: 5}, {duration: "short"});
 			ellipse.animate({radius: 4}, {duration: "short"});
+
 			dotList.forEach(function(elem){
 				var line = canvas.display.line({
 					start: { x: ellipse.x, y: ellipse.y },
@@ -101,6 +134,7 @@ document.addEventListener("DOMContentLoaded", function(){
 			dotList.push({x:ellipse.x, y: ellipse.y})
 		}
 	});
+
 
 
 });

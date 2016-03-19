@@ -67,8 +67,8 @@ document.addEventListener("DOMContentLoaded", function(){
 	canvasHtml.addEventListener("click", function(event){
 		if(!menuState){
 			var ellipse = canvas.display.ellipse({
-				x: event.clientX,
-				y: event.clientY,
+				x: event.clientX + 20,
+				y: event.clientY - 10,
 				radius: 3,
 				fill: "#fff"
 			});

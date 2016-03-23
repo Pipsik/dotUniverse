@@ -95,6 +95,13 @@ document.addEventListener("DOMContentLoaded", function(){
 			positionMenu(event);
 		}
 	})
+
+	canvas.bind("keydown", function(event){
+		if(event.keyCode === 13){
+			event.target.push({info: document.getElementsByTagName("input")[0].value});
+			document.getElementsByTagName("input")[0].value ="";
+		}
+	})
 	canvasHtml.addEventListener("click", function(event){
 		if(!menuState){
 			var ellipse = canvas.display.ellipse({
